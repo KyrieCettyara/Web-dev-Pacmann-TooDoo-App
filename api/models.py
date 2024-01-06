@@ -35,14 +35,26 @@ def get_all_project():
         return False
 
 
+
 def get_undone_user_task(username):
     try:
-        db.execute(
-            """SELECT * FROM tasks WHERE username = %s""", (username,))
+        query = """SELECT 
+        tasks.task_id 
+	        , tasks.task_name 
+	        , tasks.task_desc 
+	        , tasks.username 
+	        , tasks.undone 
+	        , tasks.project_id 
+            , projects.project_name
+        FROM tasks 
+        JOIN projects USING(project_id)
+        WHERE username = %s"""
+        insert_data = (username,)
+        db.execute(query,insert_data)
         data = db.fetchall()
 
         if data != None:
-            return task_format(data)
+            return comp_task_format(data)
         else:
             return "Task kosong."
         
@@ -65,10 +77,10 @@ def get_task_byId(task_id):
         print("Error: ", e)
         return False
 
-def update_task_byId(task_name,task_desc, username,task_id):
+def update_task_byId(task_name,task_desc, username,undone,task_id):
     try:
-        query = """UPDATE tasks SET task_name = %s , task_desc = %s , username = %s WHERE task_id = %s"""
-        insert_data = (task_name,task_desc, username,task_id,)
+        query = """UPDATE tasks SET task_name = %s , task_desc = %s , username = %s , undone = %s WHERE task_id = %s"""
+        insert_data = (task_name,task_desc, username,undone,task_id,)
         db.execute(query,insert_data)
         client.commit()
         data = db.rowcount
@@ -97,50 +109,6 @@ def delete_task_byId(task_id):
         print("Error: ", e)
         return False
 
-def get_done_user_task(username):
-    try:
-        query = """SELECT * FROM tasks WHERE username = %s AND undone = 'N'"""
-        insert_data = (username,)
-        db.execute(query,insert_data)
-        data = db.fetchall()
-        if data != None:
-            return task_format(data)
-        else:
-            return "Task kosong."
-
-    except psycopg2.Error as e:
-        print("Error: ", e)
-        return False
-
-def get_undone_user_task_byproject(username, project):
-    try:
-        query = """SELECT * FROM tasks WHERE username = %s AND undone = 'Y' AND project_id = %s"""
-        insert_data = (username, project)
-        db.execute(query,insert_data)
-        data = db.fetchall()
-        if data != None:
-            return task_format(data)
-        else:
-            return "Task kosong."
-        
-    except psycopg2.Error as e:
-        print("Error: ", e)
-        return False
-
-def get_done_user_task_byproject(username, project):
-    try:
-        query = """SELECT * FROM tasks WHERE username = %s AND undone = 'N'  AND project_id = %s """
-        insert_data = (username,project)
-        db.execute(query,insert_data)
-        data = db.fetchall()
-        if data != None:
-            return task_format(data)
-        else:
-            return "Task kosong."
-
-    except psycopg2.Error as e:
-        print("Error: ", e)
-        return False
 
 def add_user_task(task_name, task_desc, project_id, username):
     try:
@@ -190,7 +158,18 @@ def task_format(tasks):
         'task_name' : task['task_name'],
         'task_desc' : task['task_desc'],
         'project_id' : task['project_id'],
-        'username' : task['username']
+        'username' : task['username'],
+        'undone' : task['undone'],
     } for task in tasks]
-           
+
+def comp_task_format(tasks):
+    return [{
+        'task_id' : task['task_id'],
+        'task_name' : task['task_name'],
+        'task_desc' : task['task_desc'],
+        'project_id' : task['project_id'],
+        'username' : task['username'],
+        'undone' : task['undone'],
+        'project_name' : task['project_name']
+    } for task in tasks]
 

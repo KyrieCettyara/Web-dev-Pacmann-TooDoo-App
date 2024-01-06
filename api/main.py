@@ -1,6 +1,6 @@
 from flask import Flask,jsonify, request
-from models import get_user, get_all_project, get_undone_user_task, get_done_user_task, add_user_task, add_project
-from models import get_undone_user_task_byproject, get_done_user_task_byproject, get_task_byId, update_task_byId, delete_task_byId
+from models import get_user, get_all_project, get_undone_user_task, add_user_task, add_project
+from models import get_task_byId, update_task_byId, delete_task_byId
 from flask_cors import CORS
 
 
@@ -50,8 +50,9 @@ def update_user_task_byId_route(task_id):
     task_name = data['task_name']
     task_desc = data['task_desc']
     username = data['username']
+    undone = data['undone']
     print(data)
-    result = update_task_byId(task_name,task_desc, username,task_id)
+    result = update_task_byId(task_name,task_desc, username,undone,task_id)
     response = {'data': result}
     return jsonify(response)
 
@@ -62,32 +63,6 @@ def delete_user_task_byId_route(task_id):
     response = {'data': result}
     return jsonify(response)
 
-##get finished task based on username
-@app.route('/DoneUserTask/<username>', methods=['GET'])
-def get_done_user_task_route(username):
-    result = get_done_user_task(username)
-    response = result
-    return jsonify(response)
-
-##get unfinished task based on username and project id
-@app.route('/UndoneUserTask/Project', methods=['POST'])
-def get_undone_user_task_byPro_route():
-    data = request.get_json()
-    username = data['username']
-    project = data['project']
-    result = get_undone_user_task_byproject(username, project)
-    response = result
-    return jsonify(response)
-
-##get finished task based on username and project id
-@app.route('/DoneUserTask/Project', methods=['POST'])
-def get_done_user_task_byPro_route():
-    data = request.get_json()
-    username = data['username']
-    project = data['project']
-    result = get_done_user_task_byproject(username, project)
-    response = result
-    return jsonify(response)
 
 ##add new task
 @app.route('/AddUserTask', methods=['POST'])

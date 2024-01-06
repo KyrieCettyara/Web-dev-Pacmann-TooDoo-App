@@ -9,6 +9,7 @@ function drop(event){
     const data = event.dataTransfer.getData("todo")
     event.target.appendChild(document.getElementById(data))
     const dataId = event.srcElement.lastChild.id
+
     checkStatus(dataId)
 }
 
@@ -16,38 +17,6 @@ function allowDrop(event){
     event.preventDefault();
 }
 
-function updateStatus(id, status){
-    const xhr = new XMLHttpRequest()
-    const url = API_HOST + '/tasks/status' + id
-    const data = JSON.stringify({
-        status: !status
-    })
-
-    xhr.open('PUT', url, true)
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8')
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            location.reload()
-        }
-    }
-    xhr.send(data)
-}
-
-function checkStatus(id){
-    const xhr = new XMLHttpRequest
-    const url = API_HOST + '/tasks/' + id
-
-    xhr.open('GET', url, true)
-    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            const response = JSON.parse(this.response)
-
-            updateStatus(id, response.data.status)
-        }
-    }
-    return xhr.send()
-}
 
 // get all task
 const todoItem = document.getElementById("todo-item")
@@ -68,7 +37,7 @@ window.onload = function(e){
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 & this.status == 200){
             const tasks = JSON.parse(this.response)
-            console.log(tasks)
+
       
             tasks['data'].forEach((task) => {
                 const article = document.createElement('article')
@@ -77,11 +46,40 @@ window.onload = function(e){
                 const badgeDone = document.createElement('button')
                 const h4 = document.createElement('h4')
                 const p = document.createElement('p')
+                const p_proj = document.createElement('p')
+                const divContainer = document.createElement('div')
+                const divRow = document.createElement('div')
+                const col_task = document.createElement('col-sm')
+                const col_project = document.createElement('col-sm')
 
+                
+                col_task.setAttribute('class', 'col-sm-8')
+                col_task.setAttribute('style', 'padding: 0px 0px')
                 h4.appendChild(document.createTextNode(task.task_name))
                 h4.setAttribute('id', task.task_id)
-                p.appendChild(document.createTextNode(task.task_desc))
+                col_task.appendChild(h4)
 
+                divContainer.setAttribute ('class', 'container')
+                divRow.setAttribute('class','row')
+
+                col_project.setAttribute('class', 'col-sm-4')
+                col_project.setAttribute('style', 'text-align: right;padding: 0px 0px')
+
+                p_proj.setAttribute('class', 'border border-3 rounded-pill')
+                p_proj.setAttribute('style','padding: 0px 7px 0px 0px')
+                p_proj.appendChild(document.createTextNode(task.project_name))
+
+                col_project.append(p_proj)
+
+              
+                divRow.appendChild(col_task)
+                divRow.appendChild(col_project)
+
+                divContainer.appendChild(divRow)
+
+  
+                p.appendChild(document.createTextNode(task.task_desc))
+                
                 article.setAttribute('class', 'border p-3 drag')
                 article.setAttribute('ondragstart', "drag(event)")
                 article.setAttribute("draggable", "true")
@@ -105,23 +103,23 @@ window.onload = function(e){
             
                 badgeEdit.appendChild(document.createTextNode("Edit"))
 
+                badgeDone.setAttribute('id', 'doneButton')
                 badgeDone.setAttribute('class', 'badge bg-success')
-                badgeDone.setAttribute("href", "#")
+                badgeDone.setAttribute("href", '#')
                 badgeDone.setAttribute("data-title", task.task_name)
                 badgeDone.setAttribute('data-description', task.task_desc)
                 badgeDone.setAttribute("data-id", task.task_id)
-                badgeDone.setAttribute("data-bs-toggle", "modal")
-                badgeDone.setAttribute("data-bs-target", "#modalDone")
+                badgeDone.setAttribute("onclick", "doneTask("+task.task_id+")")
             
                 badgeDone.appendChild(document.createTextNode("Done"))
 
-                article.appendChild(h4)
+                article.appendChild(divContainer)
                 article.appendChild(p)
                 article.appendChild(badgeDelete)
                 article.appendChild(badgeEdit)
                 article.appendChild(badgeDone)
 
-                if(task.status == true){
+                if(task.undone == 'N'){
                     article.setAttribute('style', 'text-decoration:line-through')
                     doneItem.appendChild(article)
                 } else{
@@ -134,10 +132,47 @@ window.onload = function(e){
 
 }
 
+function updateStatus(task_id, task_name, task_desc, username){
+  const xhr = new XMLHttpRequest()
+  let url = API_HOST + "/UserTask/" + task_id;
+  const data = JSON.stringify({
+    task_name: task_name,
+    task_desc: task_desc,
+    username: username,
+    undone: 'N',
+  })
+
+  xhr.open('PUT', url, true)
+  xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8')
+  xhr.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+          location.reload()
+      }
+  }
+  xhr.send(data)
+}
+
+function doneTask(task_id){
+  const xhr = new XMLHttpRequest
+  const url = API_HOST + '/UserTask/' + task_id
+
+  xhr.open('GET', url, true)
+  xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            const response = JSON.parse(this.response)
+            response['data'].forEach(data => {
+                updateStatus(data.task_id, data.task_name, data.task_desc, data.username)
+            });
+        }
+    }
+    return xhr.send()
+
+
+}
+
 
 const modalAdd = document.getElementById("modalAdd")
 modalAdd.addEventListener("show.bs.modal", function (event) {
-  console.log("modal add item")
 
   const xhr = new XMLHttpRequest();
   const url = API_HOST +"/projects"
@@ -147,7 +182,6 @@ modalAdd.addEventListener("show.bs.modal", function (event) {
       if(this.readyState == 4 & this.status == 200){
           const projects = JSON.parse(this.response)
 
-          console.log(projects)
 
           projects['data'].forEach(project => {
             const option = document.createElement('option');
@@ -227,13 +261,17 @@ addForm.addEventListener("submit", function (event) {
 
 
 
+
+
+
 //edit modal
 const myModalEdit = document.getElementById("modalEdit");
+
 // ketika modal edit muncul jalankan fungsi berikut
 myModalEdit.addEventListener("show.bs.modal", function (event) {
   //mendapatkan id dari item
   let dataId = event.relatedTarget.attributes["data-id"];
-  // console.log(dataId.value)
+
   //get data with specific id
   let xhr = new XMLHttpRequest();
   let url = API_HOST + "/UserTask/" + dataId.value;
@@ -249,6 +287,7 @@ myModalEdit.addEventListener("show.bs.modal", function (event) {
         let oldDescription = document.getElementById("descEdit");
         oldTitle.value = data.task_name;
         oldDescription.value = data.task_desc;
+        oldUndone = data.undone;
         //close the modal after adding data
       });
       
@@ -286,6 +325,7 @@ myModalEdit.addEventListener("show.bs.modal", function (event) {
       task_name: newTitle,
       task_desc: newDescription,
       username: username,
+      undone: oldUndone,
     });
     xhr.open("PUT", url, true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
@@ -343,6 +383,67 @@ myModalDelete.addEventListener("show.bs.modal", function (event) {
     xhr.send();
   });
 });
+
+
+
+//add project modal
+const addProjectForm = document.getElementById("form-project");
+
+addProjectForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  let xhr = new XMLHttpRequest();
+  let url = API_HOST + "/AddProject";
+
+  //seleksi nilai dari input title dan description
+  let title = document.getElementById("titleProject").value;
+  let description = document.getElementById("descriptionProject").value;
+
+  //konfigurasi toast
+  const toastLiveExample = document.getElementById("liveToastAdd");
+  const toastMsgAdd = document.getElementById("toast-body-add");
+  const toast = new bootstrap.Toast(toastLiveExample);
+  //validasi input
+  if (title == "") {
+    toastMsgAdd.innerHTML = "Isian title tidak boleh kosong";
+    toast.show();
+  }
+  if (description == "") {
+    toastMsgAdd.innerHTML = "Isian deskripsi tidak boleh kosong";
+    toast.show();
+  } 
+  let new_data = JSON.stringify({
+    project_name: title,
+    project_desc: description,
+  });
+
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      //close the modal after adding data
+      const myModalAdd = bootstrap.Modal.getInstance("#modalAddProject");
+      myModalAdd.hide();
+
+      //reset form
+      addForm.reset();
+      //refresh page
+      location.reload();
+
+    } else {
+      //konfigurasi toast berhasil
+      const toastLive = document.getElementById("liveToastAdd");
+      const toastMsg = document.getElementById("toast-body-add");
+      const toast = new bootstrap.Toast(toastLive);
+      toastMsg.innerHTML = "Data berhasil";
+      toast.show();
+    }
+  };
+  
+  xhr.send(new_data);
+});
+
+
 
 function showRealTimeClock(){
     const footerTime = document.getElementById("footer-time")

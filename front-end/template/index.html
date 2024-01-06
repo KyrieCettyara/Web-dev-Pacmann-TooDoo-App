@@ -16,11 +16,25 @@
         <a class="navbar-brand text-light" href="#">Navbar</a>
         </div>
     </nav>
-
-    
+    <section class="container-sm  d-flex my-3 ">
+        <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#modalAddProject" >Add Project</button>
+    </section>
     <section class="container d-flex flex-row gap-4 my-5">
+        
         <div class="card p-4" style="width: 100%" ondrop="drop(event)" ondragover="allowDrop(event)" id="todo-item">
             <h3>Todo</h3>
+
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+                    One of three columns
+                  </div>
+                  <div class="col-sm " style="text-align: right;">
+                    <p class="border border-3 rounded-pill">One of three columns</p>
+                  </div>
+                </div>
+            </div>
+            
         </div>
     
         <div class="card p-4" style="width: 100%" ondrop="drop(event)" ondragover="allowDrop(event)" id="done">
@@ -155,6 +169,51 @@
                     <form id="formDelete">
                         <button type ="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type ="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="modalDone">
+        
+    </div>
+
+
+    <div class="modal" tabindex="-1" id="modalAddProject">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!--toast section-->
+                <div aria-live="polite" aria-atomic="true" class="bg-primary poisition-relative bd-example-toasts">
+                    <div class="toast-container p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
+                        <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToastAdd">
+                            <div class="d-flex" id="toast-body-add">
+                                <div class="toast-body">
+                                    Silahkan isi form!
+                                </div>
+                                <button type = "button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-project">
+                        <div class="mb-3">
+                            <label for="judulProjectAdd" class="form-label"></label>
+                            <input type="text" class="form-control" id="titleProject" placeholder="Ketikkan Nama Project">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descProjectAdd" class="form-label">Deskripsi</label>
+                            <input type="text" class="form-control" id="descriptionProject" placeholder="Ketikkan Deskripsi">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="btnAddProject">Tambah</button>
+                        </div>
                     </form>
                 </div>
             </div>
