@@ -98,6 +98,7 @@ onreadystatechange() merupakan callback function yang akan dipanggil ketika read
 
 4. Add Task
 
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar10.png)
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar3.png)
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar4.png)
 
