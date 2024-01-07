@@ -77,6 +77,7 @@ xhr.open("GET", url, true)
             //do something
         }
     }
+xhr.send()
 ~~~
 Untuk meng-consume API yang sudah dibuat, dimanfaatkan XMLHttpRequest(). Pertama, dilakukan instansiasi variable xhr. Kemuadian menggunakan xhr gunakan method open() untuk menentukan method('GET','POST','DEL','PUT'), url yang akan di-consume, dan parameter async. 
 
