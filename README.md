@@ -89,25 +89,31 @@ onreadystatechange() merupakan callback function yang akan dipanggil ketika read
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar1.png)
 
 2. Landing Page
+
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar11.png)
 
 3. Add Project
+
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar2.png)
 
 4. Add Task
+
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar3.png)
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar4.png)
 
 5. Edit Task
+
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar12.png)
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar6.png)
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar7.png)
 
 6. Delete Task
+
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar8.png)
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar9.png)
 
 7. Mark Task as Done
+
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar4.png)
 ![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar5.png)
 
