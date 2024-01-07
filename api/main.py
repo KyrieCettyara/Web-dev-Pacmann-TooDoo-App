@@ -29,7 +29,7 @@ def get_projects_route():
     response = {'data':result}
     return jsonify(response)
 
-##get unfinished task based on username
+##get task based on username
 @app.route('/UndoneUserTask/<username>', methods=['GET'])
 def get_undone_user_task_route(username):
     result = get_undone_user_task(username)

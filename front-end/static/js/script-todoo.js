@@ -120,7 +120,6 @@ window.onload = function(e){
                 article.appendChild(badgeDone)
 
                 if(task.undone == 'N'){
-                    article.setAttribute('style', 'text-decoration:line-through')
                     doneItem.appendChild(article)
                 } else{
                     todoItem.appendChild(article)

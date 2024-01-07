@@ -1,21 +1,31 @@
-.todo-item {
-    flex: 1 0 30%; /* grow | shrink | basis */
-    max-width: 33.33%;
-    margin-bottom: 20px;
-    min-width: 300px;
-    box-sizing: border-box;
-}
-
-.one-line {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-
-/* On screens smaller than 600px, set width to 100% */
-@media (max-width: 600px) {
-    .todo-item {
-        width: 100%;
+.glass-background{
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.3px);
+    -webkit-backdrop-filter: blur(3.3px);
+    border: 1px solid rgba(0, 0, 0, 0.4);
     }
+    
+.bg-images{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+    
+.btn-circle-md {
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+.fixed-bottom{
+    height: 3rem;
 }
