@@ -7,12 +7,13 @@
 ## Program Description
 Dalam aplikasi web sederhana ini dapat pengguna dapat melakukan login, melihat list dari task, menambahkan task, menghapus task, mengedit task, dan menambahkan project.
 
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image1.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/Flow%20Chart.jpg)
+
 
 User dapat masuk menggunakan username dan password yang dimiliki. User akan diarahkan ke landing page, pada halaman ini user dapat menambahkan task, mengedit task ataupun menghapus task yang telah ditambahkan. User juga dapat menambahkan project.
 
 
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/ERD.png)    
 
 Aplikasi ini memiliki 3 table yaitu table users, projects, dan tasks.
 Table users menyimpan data user, table projecs menyimpan data project, dan table tasks menyimpan data tasks. 
@@ -85,29 +86,29 @@ onreadystatechange() merupakan callback function yang akan dipanggil ketika read
 ## Test Case
 1. Login
 
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar1.png)
 
 2. Landing Page
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar11.png)
 
 3. Add Project
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar2.png)
 
 4. Add Task
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar4.png)
 
 5. Edit Task
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar12.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar6.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar7.png)
 
 6. Delete Task
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
-![alt text](https://github.com/KyrieCettyara/Linux-and-Container-Pacmann-/blob/main/image/image3.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar8.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar9.png)
+
+7. Mark Task as Done
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar4.png)
+![alt text](https://github.com/KyrieCettyara/Web-dev-Pacmann-TooDoo-App/blob/main/image/gambar5.png)
 
 
